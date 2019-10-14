@@ -14,7 +14,7 @@ sudo apt install -y mysql-client
 sudo ufw allow 33061
 sudo ufw allow 3306
 sudo ufw allow 6033
-sudo ufw allow 9021
+sudo ufw allow 9201
 
 sudo cp '/vagrant/load_balancer/haproxy.cfg' '/etc/haproxy/haproxy.cfg'
 sudo service haproxy restart

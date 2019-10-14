@@ -31,21 +31,23 @@ sudo rm -f composer-setup.php
 # Clone repository
 
 cd /var/www
-sudo git clone https://github.com/realworldhq/realworld.git
+sudo git clone https://github.com/gothinkster/laravel-realworld-example-app.git
+sudo mv laravel-realworld-example-app realworld
 
 # Configure app
 
 cd /var/www/realworld
 sudo cp .env.example .env
-sudo sed -i 's/APP_ENV=production'
-sudo sed -i 's/DB_HOST=127.0.0.1/DB_HOST=172.28.17.53/' .env
-sudo sed -i 's/DB_DATABASE=/DB_DATABASE=realworld/' .env
+sudo sed -i 's/APP_ENV=local/APP_ENV=production/' .env
+sudo sed -i 's/DB_HOST=127.0.0.1/DB_HOST=172.28.17.52/' .env
+sudo sed -i 's/DB_DATABASE=homestead/DB_DATABASE=realworld/' .env
 sudo sed -i 's/DB_USERNAME=homestead/DB_USERNAME=root/' .env
 sudo sed -i 's/DB_PASSWORD=secret/DB_PASSWORD=admin/' .env
 
 sudo composer install --no-interaction --no-suggest --no-dev
 sudo php artisan key:generate
-sudo php artisan setup:production -v
+sudo php artisan jwt:generate
+sudo php artisan migrate
 
 # Configure Apache
 
@@ -58,7 +60,7 @@ sudo a2enmod rewrite
 
 sudo cp 000-default.conf realworld.conf
 # sudo sed -i 's/#ServerName www.example.com/ServerName 172.28.17.56/' realworld.conf
-sudo sed -i 's/DocumentRoot \/var\/www\/html/DocumentRoot \/var\/www\/realworld/public/' realworld.conf
+sudo sed -i 's/DocumentRoot \/var\/www\/html/DocumentRoot \/var\/www\/realworld\/public/' realworld.conf
 sudo sed -i 's/AllowOverride None/AllowOverride All/' realworld.conf
 sudo sed -i 's/Options FollowSymlinks/Options Indexes FollowSymlinks/' realworld.conf
 
