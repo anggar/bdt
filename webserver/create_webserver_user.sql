@@ -1,0 +1,3 @@
+CREATE USER 'root'@'172.28.17.56' IDENTIFIED BY 'admin';
+GRANT ALL PRIVILEGES on realworld.* to 'root'@'172.28.17.56';
+FLUSH PRIVILEGES;
