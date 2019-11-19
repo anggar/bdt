@@ -1,0 +1,71 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+
+DO_BOX_URL = "https://github.com/devopsgroup-io/vagrant-digitalocean/raw/master/box/digital_ocean.box"
+PRIVATE_KEY_PATH = "./id_rsa"
+TOKEN = ENV['DO_TOKEN']
+
+Vagrant.configure("2") do |config|
+
+  config.vm.define "mongo-configsvr1" do |droplet|
+    droplet.vm.provider :digital_ocean do |provider, override|
+      override.ssh.private_key_path = PRIVATE_KEY_PATH
+      override.vm.box = 'digital_ocean'
+      override.vm.box_url = DO_BOX_URL
+      override.nfs.functional = false
+      override.vm.allowed_synced_folder_types = :rsync
+      provider.token = TOKEN
+      provider.image = 'ubuntu-18-04-x64'
+      provider.region = 'sgp1'
+      provider.size = '1gb'
+      provider.private_networking = true
+    end
+  end
+
+  config.vm.define "mongo-configsvr2" do |droplet|
+    droplet.vm.provider :digital_ocean do |provider, override|
+      override.ssh.private_key_path = PRIVATE_KEY_PATH
+      override.vm.box = 'digital_ocean'
+      override.vm.box_url = DO_BOX_URL
+      override.nfs.functional = false
+      override.vm.allowed_synced_folder_types = :rsync
+      provider.token = TOKEN
+      provider.image = 'ubuntu-18-04-x64'
+      provider.region = 'sgp1'
+      provider.size = '1gb'
+      provider.private_networking = true
+    end
+  end
+
+  config.vm.define "mongo-configsvr3" do |droplet|
+    droplet.vm.provider :digital_ocean do |provider, override|
+      override.ssh.private_key_path = PRIVATE_KEY_PATH
+      override.vm.box = 'digital_ocean'
+      override.vm.box_url = DO_BOX_URL
+      override.nfs.functional = false
+      override.vm.allowed_synced_folder_types = :rsync
+      provider.token = TOKEN
+      provider.image = 'ubuntu-18-04-x64'
+      provider.region = 'sgp1'
+      provider.size = '1gb'
+      provider.private_networking = true
+    end
+  end
+
+  config.vm.define "mongo-query-router" do |droplet|
+    droplet.vm.provider :digital_ocean do |provider, override|
+      override.ssh.private_key_path = PRIVATE_KEY_PATH
+      override.vm.box = 'digital_ocean'
+      override.vm.box_url = DO_BOX_URL
+      override.nfs.functional = false
+      override.vm.allowed_synced_folder_types = :rsync
+      provider.token = TOKEN
+      provider.image = 'ubuntu-18-04-x64'
+      provider.region = 'sgp1'
+      provider.size = '1gb'
+      provider.private_networking = true
+    end
+  end
+
+end

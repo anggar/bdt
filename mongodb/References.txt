@@ -1,0 +1,7 @@
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+https://www.linode.com/docs/databases/mongodb/build-database-clusters-with-mongodb/
+
+Provision harus lewat skrip web, upload ke 0x0 aja
+Gak perlu ganti sources.list kan udah cepet kalau di awan
+janlup priv network
+setting priv network manual di droplet
