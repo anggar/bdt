@@ -21,6 +21,7 @@ Vagrant.configure("2") do |config|
       provider.size = '1gb'
       provider.private_networking = true
     end
+    droplet.vm.provision "shell", path: "provision/configserver/cfgsvr1.sh"
   end
 
   config.vm.define "mongo-configsvr2" do |droplet|
@@ -36,6 +37,7 @@ Vagrant.configure("2") do |config|
       provider.size = '1gb'
       provider.private_networking = true
     end
+    droplet.vm.provision "shell", path: "provision/configserver/cfgsvr23.sh"
   end
 
   config.vm.define "mongo-configsvr3" do |droplet|
@@ -51,6 +53,7 @@ Vagrant.configure("2") do |config|
       provider.size = '1gb'
       provider.private_networking = true
     end
+    droplet.vm.provision "shell", path: "provision/configserver/cfgsvr23.sh"
   end
 
   config.vm.define "mongo-query-router" do |droplet|
@@ -66,6 +69,39 @@ Vagrant.configure("2") do |config|
       provider.size = '1gb'
       provider.private_networking = true
     end
+    droplet.vm.provision "shell", path: "provision/query-router/prov.sh"
+  end
+
+  config.vm.define "mongo-data-shard1" do |droplet|
+    droplet.vm.provider :digital_ocean do |provider, override|
+      override.ssh.private_key_path = PRIVATE_KEY_PATH
+      override.vm.box = 'digital_ocean'
+      override.vm.box_url = DO_BOX_URL
+      override.nfs.functional = false
+      override.vm.allowed_synced_folder_types = :rsync
+      provider.token = TOKEN
+      provider.image = 'ubuntu-18-04-x64'
+      provider.region = 'sgp1'
+      provider.size = '1gb'
+      provider.private_networking = true
+    end
+    droplet.vm.provision "shell", path: "provision/shard/shard1.sh"
+  end
+
+  config.vm.define "mongo-data-shard2" do |droplet|
+    droplet.vm.provider :digital_ocean do |provider, override|
+      override.ssh.private_key_path = PRIVATE_KEY_PATH
+      override.vm.box = 'digital_ocean'
+      override.vm.box_url = DO_BOX_URL
+      override.nfs.functional = false
+      override.vm.allowed_synced_folder_types = :rsync
+      provider.token = TOKEN
+      provider.image = 'ubuntu-18-04-x64'
+      provider.region = 'sgp1'
+      provider.size = '1gb'
+      provider.private_networking = true
+    end
+    droplet.vm.provision "shell", path: "provision/shard/shard2.sh"
   end
 
 end

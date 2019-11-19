@@ -6,6 +6,8 @@ Aplikasi berbentuk API yang akan diuji ada di http://github.com/anggar/usda.fdc
 
 Untuk datasetnya sendiri, saya akan menggunakan dataset FoodCentral dari United State Department of Agriculture. Dataset berupa berkas tabular csv yang terpisah menjadi beberapa berkas.
 
+### Setup DigitalOcean
+
 Setup akan menggunakan droplet pada DigitalOcean, oleh karena itu konfigurasi pada `Vagrantfile` akan berbeda. Sebelumnya harus menginstall terklebih dahulu plugin *DigitalOcean* pada Vagrant yang dapatt dilakukan dengan cara
 
 ```bash
@@ -18,7 +20,7 @@ Agar memudahkan pengaksesan, sebaiknya kita generasi key SSH yang nantinya akan 
 ssh-keygen -t rsa
 ```
 
-Nantinya, pindahkan kedua kunci tersebut ke folder root vagrant. Selain itu, tambahkan kunci publik ke dalam daftar kunci SSH di Dashboard Account pada DigitalOcean dengan nama `Vagrant`.
+Nantinya, pindahkan kedua kunci tersebut ke folder root vagrant yang nantinya akan . Selain itu, tambahkan kunci publik ke dalam daftar kunci SSH di Dashboard Account pada DigitalOcean dengan nama `Vagrant`.
 
 ![]()
 *Hasil sesuai dengan gambar*
@@ -52,13 +54,10 @@ PRIVATE_KEY_PATH = "./id_rsa"
 TOKEN = ENV['DO_TOKEN']
 ```
 
-Lakukan deployment dengan menggunakan perintah `vagrant up` kemudian diharapkan akan menghasilkan droplet di Dashboar DigitalOcean.
+Lakukan deployment dengan menggunakan perintah `vagrant up` kemudian diharapkan akan menghasilkan droplet di Dashboard DigitalOcean.
 
 ![]()
-*Kebetulan droplet telah diprovision sebelumnya*
 
 ![]()
-*Hasil yang diharapkan, sewaktu pengambilan gambar memang baru membuat tiga droplet*
 
-Mengingat sebelumnya kita harus memakai private netowrking pada DigitalOcean maka 
 
