@@ -2,6 +2,10 @@
 
 ## Setup
 
+Aplikasi berbentuk API yang akan diuji ada di http://github.com/anggar/usda.fdc 
+
+Untuk datasetnya sendiri, saya akan menggunakan dataset FoodCentral dari United State Department of Agriculture. Dataset berupa berkas tabular csv yang terpisah menjadi beberapa berkas.
+
 Setup akan menggunakan droplet pada DigitalOcean, oleh karena itu konfigurasi pada `Vagrantfile` akan berbeda. Sebelumnya harus menginstall terklebih dahulu plugin *DigitalOcean* pada Vagrant yang dapatt dilakukan dengan cara
 
 ```bash
