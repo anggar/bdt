@@ -1,6 +1,5 @@
 cp /vagrant/sources/hosts /etc/hosts
-
-bash -c "echo 'deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse' > /etc/apt/sources.list.d/mongodb-org-4.2.list"
+sudo cp /vagrant/sources/mongodb-org-4.2.list /etc/apt/sources.list.d/
 
 apt-get install gnupg
 wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | apt-key add -

@@ -1,6 +1,7 @@
-10.130.73.72  mongo-config-1
-10.130.22.131 mongo-config-2
-10.130.20.19  mongo-query-router
-10.130.73.145 mongo-shard-1
-10.130.69.166 mongo-shard-2
-10.130.73.160 mongo-shard-3
+172.28.17.53 mongo-config-1
+172.28.17.54 mongo-config-2
+172.28.17.52 mongo-query-router
+172.28.17.55 mongo-shard-1
+172.28.17.56 mongo-shard-2
+172.28.17.57 mongo-shard-3
+

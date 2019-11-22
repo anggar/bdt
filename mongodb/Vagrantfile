@@ -8,6 +8,7 @@ TOKEN = ENV['DO_TOKEN']
 
 Vagrant.configure("2") do |config|
   
+  # use for digitalocean only
   config.ssh.private_key_path = PRIVATE_KEY_PATH
 
   config.vm.define "mongo-configsvr1" do |droplet|
@@ -21,6 +22,14 @@ Vagrant.configure("2") do |config|
       provider.region = 'sgp1'
       provider.size = '1gb'
       provider.private_networking = true
+    end
+    droplet.vm.provider "virtualbox" do |vb, override|
+      override.vm.hostname = "mongo-config-1"
+      override.vm.box = "bento/ubuntu-18.04"
+      override.vm.network "private_network", ip: "172.28.17.53"
+      vb.name = "mongo-config-1"
+      vb.gui = false
+      vb.memory = "512"
     end
     droplet.vm.provision "shell", path: "provision/configserver/cfgsvr1.sh"
   end
@@ -37,6 +46,14 @@ Vagrant.configure("2") do |config|
       provider.size = '1gb'
       provider.private_networking = true
     end
+    droplet.vm.provider "virtualbox" do |vb, override|
+      override.vm.hostname = "mongo-config-2"
+      override.vm.box = "bento/ubuntu-18.04"
+      override.vm.network "private_network", ip: "172.28.17.54"
+      vb.name = "mongo-config-2"
+      vb.gui = false
+      vb.memory = "512"
+    end
     droplet.vm.provision "shell", path: "provision/configserver/cfgsvr2.sh"
   end
 
@@ -46,13 +63,21 @@ Vagrant.configure("2") do |config|
       override.vm.box_url = DO_BOX_URL
       override.nfs.functional = false
       override.vm.allowed_synced_folder_types = :rsync
-      override.vm.provision "shell", path: "provision/query-router/prov.sh"
       provider.token = TOKEN
       provider.image = 'ubuntu-18-04-x64'
       provider.region = 'sgp1'
       provider.size = '1gb'
       provider.private_networking = true
     end
+    droplet.vm.provider "virtualbox" do |vb, override|
+      override.vm.hostname = "mongo-query-router"
+      override.vm.box = "bento/ubuntu-18.04"
+      override.vm.network "private_network", ip: "172.28.17.52"
+      vb.name = "mongo-query-router"
+      vb.gui = false
+      vb.memory = "512"
+    end
+    droplet.vm.provision "shell", path: "provision/query-router/prov.sh"
   end
 
   config.vm.define "mongo-data-shard1" do |droplet|
@@ -67,10 +92,18 @@ Vagrant.configure("2") do |config|
       provider.size = '1gb'
       provider.private_networking = true
     end
+    droplet.vm.provider "virtualbox" do |vb, override|
+      override.vm.hostname = "mongo-data-shard1"
+      override.vm.box = "bento/ubuntu-18.04"
+      override.vm.network "private_network", ip: "172.28.17.55"
+      vb.name = "mongo-data-shard1"
+      vb.gui = false
+      vb.memory = "512"
+    end
     droplet.vm.provision "shell", path: "provision/shard/shard12.sh"
   end
 
-  config.vm.define "mongo-data-shard2" do |droplet|
+  config.vm.define "mongo-data-shardd2" do |droplet|
     droplet.vm.provider :digital_ocean do |provider, override|
       override.vm.box = 'digital_ocean'
       override.vm.box_url = DO_BOX_URL
@@ -81,6 +114,14 @@ Vagrant.configure("2") do |config|
       provider.region = 'sgp1'
       provider.size = '1gb'
       provider.private_networking = true
+    end
+    droplet.vm.provider "virtualbox" do |vb, override|
+      override.vm.hostname = "mongo-data-shardd2"
+      override.vm.box = "bento/ubuntu-18.04"
+      override.vm.network "private_network", ip: "172.28.17.56"
+      vb.name = "mongo-data-shardd2"
+      vb.gui = false
+      vb.memory = "512"
     end
     droplet.vm.provision "shell", path: "provision/shard/shard12.sh"
   end
@@ -97,6 +138,14 @@ Vagrant.configure("2") do |config|
       provider.region = 'sgp1'
       provider.size = '1gb'
       provider.private_networking = true
+    end
+    droplet.vm.provider "virtualbox" do |vb, override|
+      override.vm.hostname = "mongo-data-shard3"
+      override.vm.box = "bento/ubuntu-18.04"
+      override.vm.network "private_network", ip: "172.28.17.57"
+      vb.name = "mongo-data-shard3"
+      vb.gui = false
+      vb.memory = "512"
     end
     droplet.vm.provision "shell", path: "provision/shard/shard3.sh"
   end
