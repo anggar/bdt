@@ -1,0 +1,55 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+
+Vagrant.configure("2") do |config|
+  
+  # Redis cluster dengan 3 node
+  (1..3).each do |i|
+    config.vm.define "redis#{i}" do |node|
+      node.vm.hostname = "redis#{i}"
+      node.vm.box = "bento/ubuntu-18.04"
+      node.vm.network "private_network", ip: "172.28.17.5#{2+i}"
+      
+      node.vm.provider "virtualbox" do |vb|
+        vb.name = "redis#{i}"
+        vb.gui = false
+        vb.memory = "512"
+      end
+  
+      node.vm.provision "shell", path: "redis/deployRedis.sh"
+    end
+  end
+
+  (1..2).each do |i|
+    config.vm.define "webserver#{i}" do |node|
+      node.vm.hostname = "webserver#{i}"
+      node.vm.box = "bento/ubuntu-18.04"
+      node.vm.network "private_network", ip: "172.28.17.5#{5+i}"
+
+      node.vm.provider "virtualbox" do |vb|
+        vb.name = "webserver#{i}"
+        vb.gui = false
+        vb.memory = "512"
+      end
+
+      node.vm.provision "shell", path: "webserver/deployWebserver.sh"
+    end
+  end
+
+  config.vm.define "db" do |node|
+    node.vm.hostname = "db"
+    node.vm.box = "bento/ubuntu-18.04"
+    node.vm.network "private_network", ip: "172.28.17.52"
+    node.vm.network "forwarded_port", guest: 3306, host:3306
+
+    node.vm.provider "virtualbox" do |vb|
+      vb.name = "db"
+      vb.gui = false
+      vb.memory = "1024"
+    end
+
+    node.vm.provision "shell", path: "db/deployDatabase.sh"
+  end
+
+end
