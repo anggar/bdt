@@ -17,7 +17,7 @@ apt-get install -y software-properties-common
 add-apt-repository ppa:ondrej/php
 
 apt update
-apt install -y php php-curl php-gd php-mbstring php-xml \
+apt install -y php php-curl php-gd php-mbstring php-xml php-redis \
 				php-xmlrpc php-soap php-intl php-zip php-mysql
 
 systemctl restart apache2
